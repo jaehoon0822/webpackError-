@@ -3,54 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>react</title>
-	<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 <body>
 	<div id="root"></div>
-	<script type="text/babel">
-		const MultiplicationTable = () => {
-			const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
-			const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
-			const [value, setValue] = React.useState('');
-			const [result, setResult] = React.useState('');
-			const inputRef = React.useRef(null);
-
-			const onSubmit = (e) => {
-				e.preventDefault();
-				if ( value === first * second) {
-					setResult('참' + value);
-					setFirst(Math.ceil(Math.random() * 9));
-					setSecond(Math.ceil(Math.random() * 9));
-					setValue('');
-				} else {
-					setResult('거짓' + value);
-					setValue('');
-				}
-				inputRef.current.focus();
-			};
-
-			const onChange = (e) => {
-				setValue(e.target.value);
-			};
-
-			return (
-				<React.Fragment >
-					<div>{first} 곱하기 {second} 는?</div>
-					<form onSubmit={onSubmit}>
-						<input type="number" onChange={onChange} ref={inputRef} placeholder="값을 적어주세요." />
-						<button type="submit">확인</button>
-					</form>
-					<div>
-						{result}
-					</div>
-				</React.Fragment>
-			);
-		}
-	</script>
-	<script type="text/babel">
-		ReactDOM.render(<MultiplicationTable />, document.querySelector('#root'));
-	</script>
+	<script src="./dist/app.js"></script>
 </body>
 </html>
