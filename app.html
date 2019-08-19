@@ -10,51 +10,43 @@
 <body>
 	<div id="root"></div>
 	<script type="text/babel">
-		class MultiplicationTable extends React.Component {
-			constructor (props) {
-				super(props);
-				this.state = {
-					first: Math.ceil(Math.random() * 9),
-					second: Math.ceil(Math.random() * 9),
-					value: '',
-					result: '',
-					before: '',
-				};
-			}
+		const MultiplicationTable = () => {
+			const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+			const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+			const [value, setValue] = React.useState('');
+			const [result, setResult] = React.useState('');
+			const inputRef = React.useRef(null);
 
-			onSubmit = (e) => {
-							e.preventDefault();
-							const value = this.state.value;
-							if (parseInt(value) === this.state.first * this.state.second) {
-								this.setState({
-									result: '정답',
-									first: Math.ceil(Math.random() * 9),
-									second: Math.ceil(Math.random() * 9),
-									value: '',
-									before: ' : ' + value
-								});
-							} else {
-								this.setState({
-									result: '땡',
-									value: '',
-									before: ' : ' + value
-								});
-							}
-							this.input.focus();
-						}
+			const onSubmit = (e) => {
+				e.preventDefault();
+				if ( value === first * second) {
+					setResult('참' + value);
+					setFirst(Math.ceil(Math.random() * 9));
+					setSecond(Math.ceil(Math.random() * 9));
+					setValue('');
+				} else {
+					setResult('거짓' + value);
+					setValue('');
+				}
+				inputRef.current.focus();
+			};
 
-			render() {
-				return (
-					<React.Fragment>
-						<div>{this.state.first} 곱하기 {this.state.second}</div>	
-						<form onSubmit={this.onSubmit}>
-							<input ref={(c) => { this.input = c; }} type="number" value={this.state.value} onChange={(e) => this.setState({ value: e.target.value })} />
-							<button>입력</button>
-						</form>
-						<div>{this.state.result}{this.state.before}</div>
-					</React.Fragment>
-				);
-			}
+			const onChange = (e) => {
+				setValue(e.target.value);
+			};
+
+			return (
+				<React.Fragment >
+					<div>{first} 곱하기 {second} 는?</div>
+					<form onSubmit={onSubmit}>
+						<input type="number" onChange={onChange} ref={inputRef} placeholder="값을 적어주세요." />
+						<button type="submit">확인</button>
+					</form>
+					<div>
+						{result}
+					</div>
+				</React.Fragment>
+			);
 		}
 	</script>
 	<script type="text/babel">
